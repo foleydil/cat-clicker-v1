@@ -11,7 +11,7 @@ function init() {
   catPic.addEventListener('click', function() {
     clickCount += 1;
     counter.innerHTML = "Click Count: " + clickCount.toLocaleString();
-  });
+  }, false);
 }
 
 /*** CODE RUNS ON PROGRAM LOAD ***/
