@@ -1,0 +1,15 @@
+html {
+  font-family: monospace;
+  text-align: center;
+  font-size: 2em;
+}
+
+img {
+  max-width: 100%;
+  max-height: auto;
+}
+
+figcaption {
+  font-size: .5em;
+  font-style: italic;
+}

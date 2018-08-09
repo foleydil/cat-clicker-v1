@@ -10,7 +10,7 @@ function init() {
   const counter = document.querySelector('.counter');
   catPic.addEventListener('click', function() {
     clickCount += 1;
-    counter.innerHTML = clickCount;
+    counter.innerHTML = "Click Count: " + clickCount.toLocaleString();
   });
 }
 
