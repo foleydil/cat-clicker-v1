@@ -2,11 +2,24 @@ html {
   font-family: monospace;
   text-align: center;
   font-size: 2em;
+  width: 100%;
+}
+
+main {
+  display: flex;
+}
+
+.container-cat {
+  max-height: auto;
+}
+
+.counter {
+  margin-top: 0;
 }
 
 img {
-  max-width: 100%;
-  max-height: auto;
+  min-width: 145px;
+  max-width: 75%;
   cursor: pointer;
 }
 

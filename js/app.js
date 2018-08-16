@@ -6,8 +6,8 @@ let clickCount = 0;
 
 function init() {
   // Add click listener to image, increment clickCount and update counter on click
-  const catPic = document.querySelector('#catImage');
-  const counter = document.querySelector('.counter');
+  const catPic = document.querySelector('#cat1Image');
+  const counter = document.querySelector('#cat1-counter');
   catPic.addEventListener('click', function() {
     clickCount += 1;
     counter.innerHTML = "Click Count: " + clickCount.toLocaleString();
