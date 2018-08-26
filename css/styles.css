@@ -7,23 +7,25 @@ html {
 
 main {
   display: flex;
-}
-
-.container-cat {
-  max-height: auto;
-}
-
-.counter {
-  margin-top: 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 img {
-  min-width: 145px;
-  max-width: 75%;
+  max-width: 100%;
   cursor: pointer;
 }
 
 figcaption {
   font-size: .5em;
   font-style: italic;
+}
+
+.container-cat {
+  max-width: 50%;
+  min-width: 300px;
+}
+
+.counter {
+  margin-top: 0;
 }
