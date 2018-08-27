@@ -10,7 +10,10 @@ const catData = [
 ];
 
 //list of cat objects
-let catList = []
+const catList = []
+
+//index of currently displayed cat
+let currentCatIndex = 0;
 
 /** CLASS DECLARATIONS **/
 
@@ -39,6 +42,7 @@ function buildNav() {
   index = 0;
 
   for (cat of catList) {
+    //generate button for each cat's name, add to navbar
     let listItem = document.createElement("li");
     listItem.innerHTML = cat.name;
     listItem.classList.add("nav-item");
@@ -58,39 +62,41 @@ function buildNav() {
 function renderCat(index) {
   const currentCat = catList[index];
 
+  //update global currentCatIndex;
+  currentCatIndex = index;
+
   //update cat name
   const nameHTML = document.querySelector('.cat-name');
   nameHTML.innerHTML = currentCat.name;
 
   //update click counter
   const counterHTML = document.querySelector('.counter');
-  counterHTML.innerHTML = 'Click count: ' + currentCat.clicks.toLocaleString();
+  counterHTML.innerHTML = 'Click Count: ' + currentCat.clicks.toLocaleString();
 
   //update image
-  const imageHtml = document.querySelector('img');
-  imageHtml.src = currentCat.image[0];
-  imageHtml.alt = currentCat.image[1];
+  const imageHTML = document.querySelector('img');
+  imageHTML.src = currentCat.image[0];
+  imageHTML.alt = currentCat.image[1];
 
   //update image credit
   const imageSource = document.querySelector('figcaption');
   imageSource.innerHTML = 'Image thanks to ' + currentCat.source;
-
 }
 
-// function init() {
-//   // Add click listener to image, increment clickCount and update counter on click
-//   const cat1Pic = document.querySelector('#cat1Image');
-//   const cat1Counter = document.querySelector('#cat1-counter');
-//   cat1Pic.addEventListener('click', function() {
-//     cat1ClickCount += 1;
-//     cat1Counter.innerHTML = "Click Count: " + cat1ClickCount.toLocaleString();
-//   }, false);
-// }
 
+  //Add click listener to image, increment clickCount and update counter on click
+function addListener() {
+  const imageHTML = document.querySelector('img');
+  imageHTML.addEventListener('click', function() {
+  catList[currentCatIndex].clicks += 1;
+
+  const counterHTML = document.querySelector('.counter');
+  counterHTML.innerHTML = "Click Count: " + catList[currentCatIndex].clicks.toLocaleString();
+  }, false);
+}
 /*** CODE RUNS ON PROGRAM LOAD ***/
-
-//init();
 
 buildCatList(catData);
 buildNav();
+addListener();
 renderCat(0);
