@@ -1,7 +1,13 @@
 /*** GLOBAL VARIABLES ***/
 
-let cat1ClickCount = 0;
-let cat2ClickCount = 0;
+//array of all cat names, pictures, and credits
+const catList = [
+  ['Dankey Kang', 'res/mario-cat.jpg', 'theverybesttop10.com'],
+  ['Princess Zorldo', 'res/pikachu-cat.jpg', 'nowhereelse.com'],
+  ['Paper Throw Man', 'res/tomb-raider-cat.jpg', 'prnewsonline.com'],
+  ['Lirnda Kraft','res/pirate-cat.jpg','amazon.com'],
+  ['Kronkos','res/vampire-cat.jpg','amazon.com']
+];
 
 /*** FUNCTION DECLARATIONS ***/
 
