@@ -3,16 +3,28 @@ html {
   text-align: center;
   font-size: 2em;
   width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
+  min-height: 100%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+}
+
+nav {
+  background-color: #d5d1d0;
+  width: auto;
+  padding: 20px;
 }
 
 img {
-  max-width: 100%;
+  max-width: 75%;
   cursor: pointer;
 }
 
@@ -21,16 +33,34 @@ figcaption {
   font-style: italic;
 }
 
-.container-cat {
-  max-width: 50%;
-  min-width: 300px;
+.nav-item {
+  background-color: #7ee978;
+  color: #1506c6;
+  border-style: solid;
+  border-width: thin;
+  padding: 2px;
+  margin: 15px 0 15px 0;
+  font-size: .75em;
+  cursor: pointer;
 }
 
-.counter {
+.cat-container {
+  display: flex;
+}
+
+#nav-list {
+  list-style-type: none;
+  height: 100%;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+#counter {
   margin-top: 0;
 }
 
-.cat-name {
+#cat-name {
   font-weight: bold;
   margin-bottom: 0;
 }
