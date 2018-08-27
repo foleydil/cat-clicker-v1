@@ -2,35 +2,28 @@ html {
   font-family: monospace;
   text-align: center;
   font-size: 2em;
-  width: 100%;
-  height: 100%;
 }
 
 body {
   margin: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 main {
-  min-height: 100%;
   display: flex;
 }
 
+/** NAVIGATION **/
+
 nav {
   background-color: #d5d1d0;
-  width: auto;
   padding: 20px;
+  flex-grow: 0;
 }
 
-img {
-  max-width: 75%;
-  cursor: pointer;
-}
-
-figcaption {
-  font-size: .5em;
-  font-style: italic;
+.nav-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .nav-item {
@@ -44,23 +37,38 @@ figcaption {
   cursor: pointer;
 }
 
+/** CAT DISPLAY AREA **/
+
 .cat-container {
-  display: flex;
+  padding: 0px 20px 20px 20px;
+  border: solid 1px;
+  flex-grow: 1;
 }
 
-#nav-list {
-  list-style-type: none;
-  height: 100%;
-  text-align: left;
-  padding: 0;
+.cat-name {
+  font-weight: bold;
   margin: 0;
 }
 
-#counter {
-  margin-top: 0;
+.container-counter {
+  margin: 10px;
 }
 
-#cat-name {
-  font-weight: bold;
-  margin-bottom: 0;
+.counter {
+  margin: 0;
+}
+
+figure {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  cursor: pointer;
+}
+
+figcaption {
+  font-size: .5em;
+  font-style: italic;
 }
