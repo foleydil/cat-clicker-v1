@@ -33,7 +33,7 @@ let model = {
   },
 
   //index of currently displayed cat
-  currentCatIndex: 0,
+  currentCatIndex: 0
 
 };
 
@@ -85,7 +85,8 @@ let octopus = {
     view.renderCat(model.catList[0]);
     this.addNavListeners();
     this.addPicListener();
-    }
+  }
+
 };
 
 /** VIEW **/
@@ -102,6 +103,8 @@ let view = {
       listItem.classList.add("nav-item");
       navList.appendChild(listItem);
     };
+    //add 'selected' style to first buttons
+    document.querySelector('li').classList.add('selected');
   },
 
   //update viewing area
