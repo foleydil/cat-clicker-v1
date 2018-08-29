@@ -48,9 +48,18 @@ let octopus = {
     index = 0;
     for (button of navButtons) {
       button.addEventListener('click', (function(indexCopy){
-        return function() {
+        return function(event) {
           view.renderCat(model.catList[indexCopy]);
           model.currentCatIndex = indexCopy;
+
+          //clear 'selected' class from all buttons
+          let allNavButtons = document.getElementsByTagName('li');
+          console.log(allNavButtons);
+          for (b of allNavButtons) {
+            b.classList.remove('selected');
+          }
+          //add 'selected' class to clicked button
+          event.target.classList.add('selected');
         };
       })(index));
       index++;

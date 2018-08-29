@@ -37,6 +37,10 @@ nav {
   cursor: pointer;
 }
 
+.nav-item.selected {
+  background-color: #ffffff;
+}
+
 /** CAT DISPLAY AREA **/
 
 .cat-container {
