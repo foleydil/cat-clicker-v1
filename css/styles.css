@@ -26,7 +26,8 @@ nav {
   margin: 0;
 }
 
-.nav-item {
+li,
+.admin-button {
   background-color: #7ee978;
   color: #1506c6;
   border-style: solid;
@@ -35,6 +36,11 @@ nav {
   margin: 15px 0 15px 0;
   font-size: .75em;
   cursor: pointer;
+}
+
+.admin-button {
+  background-color: #f8fc20;
+  margin-top: 60px;
 }
 
 .nav-item.selected {
@@ -75,4 +81,10 @@ img {
 figcaption {
   font-size: .5em;
   font-style: italic;
+}
+
+/** ADMIN AREA **/
+
+.admin-area {
+  visibility: hidden;
 }
