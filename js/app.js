@@ -11,11 +11,11 @@ class Cat {
 
 let model = {
 
-  //array of all cat names, pictures([img source file, alt text]), and credits
+  //array of all [cat names, [img source file, alt text], credits]
   catData: [
     ['Dankey Kang', ['res/mario-cat.jpg', 'Cat in a Super Mario costume'], 'theverybesttop10.com'],
     ['Princess Zorldo', ['res/pikachu-cat.jpg', 'Cat painted like Pikachu'], 'nowhereelse.com'],
-    ['Paper Throw Man', ['res/tomb-raider-cat.jpg', 'Cat jumping and shooting two pistols'], 'prnewsonline.com'],
+    ['Vault Guy ', ['res/tomb-raider-cat.jpg', 'Cat jumping and shooting two pistols'], 'prnewsonline.com'],
     ['Lirnda Kraft',['res/pirate-cat.jpg', 'Cat dressed like a pirate'], 'amazon.com'],
     ['Krantos',['res/vampire-cat.jpg', 'Cat in a Vampire costume'], 'amazon.com']
   ],
@@ -31,10 +31,11 @@ let model = {
     }
   },
 
-  //index of currently displayed cat
+  //currently displayed cat object
   currentCat: null
 
 };
+
 
 /** OCTOPUS **/
 
@@ -45,14 +46,17 @@ let octopus = {
     return model.catList;
   },
 
+  //get currently displayed cat object
   getCurrentCat: function() {
     return model.currentCat;
   },
 
+  //change currently displayed cat
   updateCurrentCat: function(cat) {
     model.currentCat = cat;
   },
 
+  //get number of clicks for currently displayed cat
   updateClicks: function() {
     model.currentCat.clicks++;
   },
@@ -61,9 +65,7 @@ let octopus = {
   init: function() {
     model.buildCatList(model.catData);
     model.currentCat = model.catList[0];
-    view.buildNav(model.catList);
-    view.renderCat(model.catList[0]);
-    view.addImageListener();
+    view.init(this.getCatList());
   }
 };
 
@@ -72,22 +74,38 @@ let octopus = {
 
 let view = {
 
+  //called by Octopus, renders initial view and adds listeners
+  init: function(data){
+    view.buildNav(data);
+    view.renderCat(data[0]);
+    view.addListeners();
+
+    //add 'selected' style to top nav button
+    document.querySelector('li').classList.add('selected');
+  },
+
   //create navbar with names of each cat in catList
   buildNav: function() {
     const navList = document.querySelector('.nav-list');
     const data = octopus.getCatList();
+
+    //clear existing nav buttons
+    navList.innerHTML = "";
+
+    //generate <li> for each cat's name, add to navbar
     for (cat of data) {
-      //generate button for each cat's name, add to navbar
       let listItem = document.createElement("li");
       listItem.innerHTML = cat.name;
       listItem.classList.add("nav-item");
 
-      //add click listener to each cat name, to update viewing area &
-      //increment click countwhen clicked
+      //add click listener to each nav button
       listItem.addEventListener('click', (function(catCopy) {
         return function(event) {
           octopus.updateCurrentCat(catCopy);
+          //update viewing area
           view.renderCat();
+          //update Admin Area
+          view.renderAdminArea();
 
           //clear 'selected' class from all buttons
           let allNavButtons = document.getElementsByTagName('li');
@@ -99,48 +117,93 @@ let view = {
         };
       })(cat));
 
-      //append element to list
+      //append li to nav area
       navList.appendChild(listItem);
     };
-
-    //add 'selected' style to first button
-    document.querySelector('li').classList.add('selected');
   },
 
-
-  //update viewing area
+  //Render cat viewing area
   renderCat: function() {
     const currentCat = octopus.getCurrentCat();
 
-    //update cat name
+    //display cat name in name area
     const nameHTML = document.querySelector('.cat-name');
     nameHTML.innerHTML = currentCat.name;
 
-    //update click counter
+    //display click counter in counter area
     const counterHTML = document.querySelector('.counter');
     counterHTML.innerHTML = 'Click Count: ' + currentCat.clicks.toLocaleString();
 
-    //update image and alt text
+    //display image and add alt text
     const imageHTML = document.querySelector('img');
     imageHTML.src = currentCat.image[0];
     imageHTML.alt = currentCat.image[1];
 
-    //update image credit
+    //display image credit below image
     const imageSource = document.querySelector('figcaption');
     imageSource.innerHTML = 'Image thanks to ' + currentCat.source;
   },
 
-  //Add click listener to image, increment clickCount and update counter on click
-  addImageListener: function() {
+  //Render Admin area
+  renderAdminArea: function() {
+    let nameForm = document.querySelector('#nameForm');
+    let imageForm = document.querySelector('#imageForm');
+    let clicksForm = document.querySelector('#clicksForm');
+    const currentCat = octopus.getCurrentCat();
+
+    //add current cat's attributes as values in form fields
+    nameForm.value = currentCat.name;
+    imageForm.value = currentCat.source;
+    clicksForm.value = currentCat.clicks;
+  },
+
+  //Add listeners to cat viewing area and admin area
+  addListeners: function() {
     const imageHTML = document.querySelector('img');
     const currentCat = octopus.getCurrentCat();
     const counterHTML = document.querySelector('.counter');
+
+    //add listener to increment clicks when cat image is clicked
     imageHTML.addEventListener('click', function() {
       //increment click count for currently displayed cat
       octopus.getCurrentCat().clicks += 1;
-      //update counter HTML
-      counterHTML.innerHTML = "Click Count: " + octopus.getCurrentCat().clicks.toLocaleString();
+      //re-render cat viewing area and admin input values
+      view.renderCat();
+      view.renderAdminArea();
     }, false);
+
+    //add listener to Admin button
+    const adminButton = document.querySelector('.admin-button');
+    adminButton.addEventListener('click', function() {
+      const adminArea = document.querySelector('#admin-container');
+      //update admin area input field values before showing
+      view.renderAdminArea();
+      //toggle visibility of admin section
+      adminArea.style.display = adminArea.style.display === 'none' ? 'block' : 'none';
+    });
+
+    //Add listener to Admin area Submit button
+    const adminSubmitButton = document.querySelector('.admin-submit-button');
+    adminSubmitButton.addEventListener('click', function() {
+      //on form submission, update currentCat attributes, re-render nav & display
+      let currentCat = octopus.getCurrentCat();
+      let formInputs = document.getElementsByTagName('input');
+
+      //update values of current cat object based on Admin input fields
+      currentCat.name = formInputs[0].value;
+      currentCat.source = formInputs[1].value;
+      currentCat.clicks = parseInt(formInputs[2].value, 10);
+
+      //re-render cat viewing area
+      view.renderCat();
+
+      //update names on nav buttons
+      let catList = octopus.getCatList();
+      let navButtons = document.querySelectorAll('li');
+      for (i=0; i < navButtons.length; ++i) {
+        navButtons[i].innerHTML = catList[i].name;
+      };
+    });
   }
 };
 

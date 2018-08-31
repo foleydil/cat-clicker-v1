@@ -38,9 +38,12 @@ li,
   cursor: pointer;
 }
 
-.admin-button {
+.admin-button,
+.admin-submit-button {
   background-color: #f8fc20;
   margin-top: 60px;
+  border: solid 2px;
+  cursor: pointer;
 }
 
 .nav-item.selected {
@@ -52,7 +55,7 @@ li,
 .cat-container {
   padding: 0px 20px 20px 20px;
   border: solid 1px;
-  flex-grow: 1;
+  flex-grow: 2;
 }
 
 .cat-name {
@@ -85,6 +88,8 @@ figcaption {
 
 /** ADMIN AREA **/
 
-.admin-area {
-  visibility: hidden;
+#admin-container {
+  width: 20%;
+  font-size: .75em;
+  padding: 20px;
 }
